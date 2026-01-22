@@ -1,13 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Job portal backend",
-  "main": "src/server.js",
+  "description": "",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "react-scripts build",
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "node src/server.js",
+    "start": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +19,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.1.4",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.12"
-  },
-  "devDependencies": {
+    "nodemailer": "^7.0.12",
     "nodemon": "^3.1.11"
   }
 }
