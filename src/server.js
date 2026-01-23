@@ -35,8 +35,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Postman / server-to-server ke liye
-      if (!origin) return callback(null, true);
+      if (!origin) return callback(null, true); // Postman / server calls
 
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -49,9 +48,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-
-// VERY IMPORTANT (preflight fix)
-app.options("*", cors());
 
 // Body parser
 app.use(express.json());
