@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 
 const app = express();
-const PORT = 5000;
+const PORT = 8080;
 
 // Fix __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);

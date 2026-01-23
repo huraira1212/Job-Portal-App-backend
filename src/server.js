@@ -27,13 +27,31 @@ const __dirname = path.dirname(__filename);
 // ================= MIDDLEWARE =================
 
 // CORS
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://job-portal-app-ydon.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      // Postman / server-to-server ke liye
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+// VERY IMPORTANT (preflight fix)
+app.options("*", cors());
 
 // Body parser
 app.use(express.json());
@@ -55,7 +73,10 @@ app.get("/", (req, res) => {
 });
 
 // ================= SERVER =================
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, "0.0.0.0", () => {
+  // Localhost ki jagah server ka status print karein
+  console.log(`🚀 Server is live and listening on port ${PORT}`);
+  console.log(`Environment Port: ${process.env.PORT || "Local 8080"}`);
 });
